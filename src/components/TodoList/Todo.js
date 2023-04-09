@@ -1,35 +1,24 @@
-import React, { Component } from "react";
+export default function Todo(props) {
+  const removeHandler = (id) => {
+    props.onRemove(id);
+  };
+  const editHandler = (id) => {
+    props.onEdit(id);
+  };
+  return (
+    <div
+      className={`todo ${props.completed ? "completed" : ""}`}
+      style={{ display: "flex" }}
+    >
+      <li className="todo-item">{props.title}</li>
 
-export default class Todo extends Component {
-  removeHandler(id) {
-    this.props.onRemove(id);
-  }
-  editHandler(id) {
-    this.props.onEdit(id);
-  }
+      <button className="check-btn" onClick={() => editHandler(props.id)}>
+        <i className="fas fa-check" aria-hidden="true"></i>
+      </button>
 
-  render() {
-    return (
-      <div
-        className={`todo ${this.props.completed ? "completed" : ""}`}
-        style={{ display: "flex" }}
-      >
-        <li className="todo-item">{this.props.title}</li>
-
-        <button
-          className="check-btn"
-          onClick={this.editHandler.bind(this, this.props.id)}
-        >
-          <i className="fas fa-check" aria-hidden="true"></i>
-        </button>
-
-        <button
-          className="trash-btn"
-          onClick={this.removeHandler.bind(this, this.props.id)}
-        >
-          <i className="fas fa-trash" aria-hidden="true"></i>
-        </button>
-      </div>
-    );
-  }
+      <button className="trash-btn" onClick={() => removeHandler(props.id)}>
+        <i className="fas fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
+  );
 }
